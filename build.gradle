@@ -13,9 +13,15 @@ repositories {
 	mavenCentral()
 }
 
+
+configurations {
+    ddTracerAgent
+}
+
 applicationDefaultJvmArgs = ["-javaagent:dd-java-agent.jar"]
 
 dependencies {
+	ddTracerAgent "com.datadoghq:dd-java-agent:0.91.0"
 	// tag::actuator[]
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	// end::actuator[]
@@ -26,5 +32,6 @@ dependencies {
 }
 
 test {
+	jvmArgs = ["-javaagent:${configurations.ddTracerAgent.asPath}", "-Ddd.service=ci-test", "-Ddd.civisibility.enabled=true"]
 	useJUnitPlatform()
 }
