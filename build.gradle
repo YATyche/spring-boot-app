@@ -32,8 +32,10 @@ dependencies {
 applicationDefaultJvmArgs = ["-javaagent:${configurations.ddTracerAgent.asPath}"]
 
 test {
-	systemProperty "dd.env", project.getProperty("dd.env")
-  if(project.hasProperty("dd-civisibility")) {
+    options {
+        systemProperties(System.getProperties())
+    }
+    if(project.hasProperty("dd-civisibility")) {
     jvmArgs = [
         "-javaagent:${configurations.ddTracerAgent.asPath}",
         "-Ddd.service=ci-test",
