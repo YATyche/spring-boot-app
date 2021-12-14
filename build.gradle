@@ -18,8 +18,6 @@ configurations {
     ddTracerAgent
 }
 
-applicationDefaultJvmArgs = ["-javaagent:dd-java-agent.jar"]
-
 dependencies {
 	ddTracerAgent "com.datadoghq:dd-java-agent:0.91.0"
 	// tag::actuator[]
@@ -31,7 +29,18 @@ dependencies {
 	// end::tests[]
 }
 
+applicationDefaultJvmArgs = ["-javaagent:${configurations.ddTracerAgent.asPath}"]
+
 test {
-	jvmArgs = ["-javaagent:${configurations.ddTracerAgent.asPath}", "-Ddd.service=ci-test", "-Ddd.civisibility.enabled=true"]
-	useJUnitPlatform()
+  if(project.hasProperty("dd-civisibility")) {
+    jvmArgs = [
+        "-javaagent:${configurations.ddTracerAgent.asPath}",
+        "-Ddd.service=ci-test",
+        "-Ddd.prioritization.type=ENSURE_TRACE",
+        "-Ddd.jmxfetch.enabled=false",
+        "-Ddd.integrations.enabled=false",
+        "-Ddd.integration.junit.enabled=true"
+    ]
+  }
+  useJUnitPlatform()
 }
