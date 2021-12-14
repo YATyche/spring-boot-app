@@ -36,10 +36,7 @@ test {
     jvmArgs = [
         "-javaagent:${configurations.ddTracerAgent.asPath}",
         "-Ddd.service=ci-test",
-        "-Ddd.prioritization.type=ENSURE_TRACE",
-        "-Ddd.jmxfetch.enabled=false",
-        "-Ddd.integrations.enabled=false",
-        "-Ddd.integration.junit.enabled=true"
+        "-Ddd.civisibility.enabled=true"
     ]
   }
   useJUnitPlatform()
