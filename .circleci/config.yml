@@ -17,5 +17,5 @@ jobs:
 workflows:
   spring-boot-app-workflow:
     jobs:
-      # - checkout-app
+      # - checkout-app. 
       - gradle/test
