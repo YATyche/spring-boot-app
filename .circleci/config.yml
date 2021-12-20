@@ -1,14 +1,12 @@
 version: 2.1
 orbs:
   datadog-agent: datadog/agent@0
-  gradle: circleci/gradle@2.2.0
+  # gradle: circleci/gradle@2.2.0
 
 jobs:
-  checkout-app:
+  test:
     docker:
-      - image: img/base:stable
-    environment:
-      DD_API_KEY: ssss
+      - image: img/java:stable
     steps:
       - checkout
       - datadog-agent/setup
@@ -18,4 +16,4 @@ workflows:
   spring-boot-app-workflow:
     jobs:
       # - checkout-app. 
-      - gradle/test
+      - checkout
