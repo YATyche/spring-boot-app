@@ -6,7 +6,7 @@ orbs:
 jobs:
   test:
     docker:
-      - image: cimg/openjdk:stable
+      - image: cimg/openjdk
     steps:
       - checkout
       - datadog-agent/setup
