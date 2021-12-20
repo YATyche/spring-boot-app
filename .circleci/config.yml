@@ -1,7 +1,6 @@
 version: 2.1
 orbs:
   datadog-agent: datadog/agent@0
-  # gradle: circleci/gradle@2.2.0
 
 jobs:
   test:
@@ -12,8 +11,16 @@ jobs:
       - datadog-agent/setup
       - run: gradle test
       - datadog-agent/stop
+  build:
+    docker:
+      - image: cimg/openjdk:11.0
+    steps:
+      - checkout
+      - run: gradle build
 workflows:
   spring-boot-app-workflow:
     jobs:
-      # - checkout-app. 
       - test
+      - build:
+          requires:
+            - test
