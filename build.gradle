@@ -5,8 +5,6 @@ plugins {
 	id 'application'
 }
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
@@ -29,18 +27,17 @@ dependencies {
 	// end::tests[]
 }
 
-applicationDefaultJvmArgs = ["-javaagent:${configurations.ddTracerAgent.asPath}"]
-
 test {
-    options {
-        systemProperties(System.getProperties())
-    }
     if(project.hasProperty("dd-civisibility")) {
-    jvmArgs = [
-        "-javaagent:${configurations.ddTracerAgent.asPath}",
-        "-Ddd.service=ci-test",
-        "-Ddd.civisibility.enabled=true"
-    ]
+			jvmArgs = [
+					"-javaagent:${configurations.ddTracerAgent.asPath}",
+					"-Ddd.service=spring-boot-app",
+					"-Ddd.civisibility.enabled=true"
+			]
   }
   useJUnitPlatform()
+}
+
+application {
+    mainClass = 'com.example.springboot.Application'
 }
