@@ -40,9 +40,10 @@ jobs:
       - setup_remote_docker:
           version: 20.10.7
       - run: |
-          env | sort
+          GIT_COMMIT_SHA=$(git rev-parse HEAD)
           TAG=0.1.$CIRCLE_BUILD_NUM
-          docker build -t yaalexf/spring-boot-app --build-arg VERSION=${TAG} .
+          datadog-ci git-metadata upload
+          docker build -t yaalexf/spring-boot-app --build-arg VERSION=${TAG} --build-arg GIT_COMMIT_SHA=${GIT_COMMIT_SHA} .
           echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
           docker push yaalexf/spring-boot-app
 workflows:
