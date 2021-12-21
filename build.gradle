@@ -32,15 +32,12 @@ dependencies {
 applicationDefaultJvmArgs = ["-javaagent:${configurations.ddTracerAgent.asPath}"]
 
 test {
-    options {
-        systemProperties(System.getProperties())
-    }
     if(project.hasProperty("dd-civisibility")) {
-    jvmArgs = [
-        "-javaagent:${configurations.ddTracerAgent.asPath}",
-        "-Ddd.service=ci-test",
-        "-Ddd.civisibility.enabled=true"
-    ]
+			jvmArgs = [
+					"-javaagent:${configurations.ddTracerAgent.asPath}",
+					"-Ddd.service=spring-boot-app",
+					"-Ddd.civisibility.enabled=true"
+			]
   }
   useJUnitPlatform()
 }
