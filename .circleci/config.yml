@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout
       - datadog-agent/setup
-      - run: gradle test
+      - run: gradle test -Ddd-civisibility=true
       - datadog-agent/stop
   build:
     docker:
