@@ -31,7 +31,7 @@ test {
     if(project.hasProperty("dd-civisibility")) {
 			jvmArgs = [
 					"-javaagent:${configurations.ddTracerAgent.asPath}",
-					"-Ddd.service=spring-boot-app",
+					"-Ddd.service=spring-boot",
 					"-Ddd.civisibility.enabled=true"
 			]
   }
