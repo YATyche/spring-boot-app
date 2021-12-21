@@ -42,7 +42,7 @@ jobs:
       - run: |
           GIT_COMMIT_SHA=$(git rev-parse HEAD)
           TAG=0.1.$CIRCLE_BUILD_NUM
-          npm install -g @datadog/datadog-ci
+          npm install @datadog/datadog-ci
           datadog-ci git-metadata upload
           docker build -t yaalexf/spring-boot-app --build-arg VERSION=${TAG} --build-arg GIT_COMMIT_SHA=${GIT_COMMIT_SHA} .
           echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
